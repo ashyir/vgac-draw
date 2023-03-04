@@ -114,7 +114,7 @@ const drawSector = (sector, i) => {
 const rotate = () => {
     const sector = sectors[getIndex()];
 
-    let text = sector.label.replace("of", "");
+    let text = sector.label.replace(" of ", " ");
     let matches = text.match(/\b(\w)/g);
     let acronym = matches.join('');
 

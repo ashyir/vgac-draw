@@ -166,6 +166,8 @@ const resize = () => {
     let windowHeight = $(window).height();
     let wheelSize = windowWidth > windowHeight ? windowHeight : windowWidth;
 
+    $("#screen").height(windowHeight);
+
     wheelSize = wheelSize * 95 / 100;
 
     ctx.canvas.width = wheelSize;

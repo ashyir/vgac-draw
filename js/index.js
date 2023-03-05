@@ -65,33 +65,31 @@ for (let school of schools) {
     colorPos += colorPos == colors.length - 1 ? -colorPos : 1;
 }
 
-// Generate random float in range min-max:
-const rand = (m, M) => Math.random() * (M - m) + m;
-
-const tot = sectors.length;
-const elSpin = document.querySelector("#spin");
 const ctx = document.querySelector("#wheel").getContext`2d`;
-const dia = ctx.canvas.width;
-const rad = dia / 2;
-const PI = Math.PI;
-const TAU = 2 * PI;
-const arc = TAU / tot;
-const friction = 0.991;  // 0.995=soft, 0.99=mid, 0.98=hard.
+
+const arc = 2 * Math.PI / sectors.length;
+const friction = 0.991; // 0.995=soft, 0.99=mid, 0.98=hard.
 const angVelMin = 0.002; // Below that number will be treated as a stop.
 let angVelMax = 0; // Random ang.vel. to accelerate to.
-let angVel = 0;    // Current angular velocity.
-let ang = 0;       // Angle rotation in radians.
+let angVel = 0; // Current angular velocity.
+let ang = 0; // Angle rotation in radians.
 let isSpinning = false;
 let isAccelerating = false;
 let animFrame = null; // Engine's requestAnimationFrame.
 
-//* Get index of current sector */
-const getIndex = () => Math.floor(tot - ang / TAU * tot) % tot;
+let rad = 0;
 
-//* Draw sectors and prizes texts to canvas */
+// Generate random float in range min-max:
+const rand = (m, M) => Math.random() * (M - m) + m;
+
+// Get index of current sector.
+const getIndex = () => Math.floor(sectors.length - ang / (2 * Math.PI * sectors.length)) % sectors.length;
+
+// Draw sectors and prizes texts to canvas.
 const drawSector = (sector, i) => {
     const ang = arc * i;
     ctx.save();
+
     // COLOR
     ctx.beginPath();
     ctx.fillStyle = sector.color;
@@ -99,6 +97,7 @@ const drawSector = (sector, i) => {
     ctx.arc(rad, rad, rad, ang, ang + arc);
     ctx.lineTo(rad, rad);
     ctx.fill();
+
     // TEXT
     ctx.translate(rad, rad);
     ctx.rotate(ang + arc / 2);
@@ -106,25 +105,15 @@ const drawSector = (sector, i) => {
     ctx.fillStyle = "#fff";
     ctx.font = "8px sans-serif";
     ctx.fillText(sector.label, rad - 5, 2);
+
     //
     ctx.restore();
 };
 
-//* CSS rotate CANVAS Element */
-const rotate = () => {
-    const sector = sectors[getIndex()];
-
-    let text = sector.label.replace(" of ", " ");
-    let matches = text.match(/\b(\w)/g);
-    let acronym = matches.join('');
-
-    ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
-    elSpin.textContent = !angVel ? "SPIN" : acronym;
-    elSpin.style.background = sector.color;
-};
+// CSS rotate CANVAS Element.
+const rotate = () => ctx.canvas.style.transform = `rotate(${ang - Math.PI / 2}rad)`;
 
 const frame = () => {
-
     if (!isSpinning) return;
 
     if (angVel >= angVelMax) isAccelerating = false;
@@ -154,7 +143,7 @@ const frame = () => {
     }
 
     ang += angVel; // Update angle.
-    ang %= TAU;    // Normalize angle.
+    ang %= 2 * Math.PI;    // Normalize angle.
     rotate();      // CSS rotate!
 };
 
@@ -163,18 +152,37 @@ const engine = () => {
     animFrame = requestAnimationFrame(engine)
 };
 
-elSpin.addEventListener("click", () => {
+const start = () => {
     if (isSpinning) return;
+
     isSpinning = true;
     isAccelerating = true;
     angVelMax = rand(0.25, 0.40);
     engine(); // Start engine!
-});
+};
+
+const resize = () => {
+    let windowWidth = $(window).width();
+    let windowHeight = $(window).height();
+    let wheelSize = windowWidth > windowHeight ? windowHeight : windowWidth;
+
+    wheelSize = wheelSize * 95 / 100;
+
+    ctx.canvas.width = wheelSize;
+    ctx.canvas.height = wheelSize;
+
+    rad = wheelSize / 2;
+
+    // INIT!
+    sectors.forEach(drawSector);
+    rotate(); // Initial rotation.
+};
+
+$(window).on("load", resize);
+$(window).on("resize", resize);
+
+$(document).on("click", "#spin", start);
 
 $(document).on("click", "#btnClose", () => {
     $('#resultDialog').modal("hide");
-})
-
-// INIT!
-sectors.forEach(drawSector);
-rotate(); // Initial rotation.
+});

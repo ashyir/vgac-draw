@@ -1,4 +1,13 @@
-#wheelOfFortune {
+* {
+    font-family: sans-serif;
+}
+
+#screen {
+    z-index: -1;
+    position: absolute;
+}
+
+#wheelContainer {
     display: inline-flex;
     position: relative;
     overflow: hidden;
@@ -41,4 +50,53 @@
 
 #logo img {
     width: 100%;
+}
+
+#resultDialog {
+    width: 90%;
+    z-index: 1;
+    padding: 20px;
+    display: none;
+    position: absolute;
+    text-align: center;
+    color: white;
+    background-color: #1B4B93;
+}
+
+#resultText {
+    margin: 20px;
+    word-wrap: break-word;
+}
+
+.opacity {
+    opacity: 15%;
+}
+
+.button {
+    /* border thickness */
+    --b: 3px;
+    /* size of the corner */
+    --s: .45em;
+    --color: white;
+
+    padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+    color: var(--color);
+    --_p: var(--s);
+    background:
+        conic-gradient(from 90deg at var(--b) var(--b), #0000 90deg, var(--color) 0) var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+    outline: var(--b) solid #0000;
+    outline-offset: .6em;
+    font-size: 16px;
+    margin: 20px;
+    border: 0;
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button:active {
+    --color: #1B4B93;
+    color: var(--color);
 }

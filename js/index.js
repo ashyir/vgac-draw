@@ -232,6 +232,7 @@ const hideElements = () => {
 window.addEventListener("resize", resize);
 window.addEventListener("click", hideElements);
 window.addEventListener("load", getSchoolList);
+window.addEventListener("orientationchange", resize);
 
 spin.addEventListener("click", start);
 resultClose.addEventListener("click", hideResult);

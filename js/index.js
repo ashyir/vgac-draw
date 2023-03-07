@@ -51,12 +51,13 @@ const toggleMenu = (e) => {
 };
 
 const showNewListDialog = () => {
+    screen.classList.add("opacity");
     newListDialog.style.display = "block";
     newListInput.focus();
 };
 
 const clearNewListInput = () => newListInput.value = "";
-const closeNewListDialog = () => newListDialog.style.display = "none";
+const closeNewListDialog = () => hideElement(newListDialog);
 
 const showResult = () => {
     let sector = sectors[getIndex()];
@@ -69,9 +70,11 @@ const showResult = () => {
     resizeResultDialog();
 };
 
-const hideResult = () => {
-    if (resultDialog.style.display != "none") {
-        resultDialog.style.display = "none";
+const hideResult = () => hideElement(resultDialog);
+
+const hideElement = (element) => {
+    if (element.style.display != "none") {
+        element.style.display = "none";
         screen.classList.remove("opacity");
     }
 };
@@ -218,12 +221,13 @@ const addNewList = () => {
         prepareSector(list);
         resizeWheel();
 
-        newListDialog.style.display = "none";
+        hideElement(newListDialog);
     }
 };
 
-const hideElements = () => {
-    hideResult();
+const hideElements = (e) => {
+    if (resultDialog.style.display == "block")
+        hideResult();
 
     if (menu.style.display == "block")
         menu.style.display = "none";

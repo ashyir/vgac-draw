@@ -12,6 +12,12 @@
 </head>
 
 <body>
+    <div id="menuButton" class="menu">&#9776;</div>
+    <div id="menu" class="menu">
+        <div id="menuNewList" class="menu menuItem">New List</div>
+        <div id="menuOZUniversities" class="menu menuItem">OZ Universities</div>
+    </div>
+
     <div id="screen">
         <div id="wheelContainer">
             <canvas id="wheel"></canvas>
@@ -25,7 +31,18 @@
 
     <div id="resultDialog">
         <div id="resultText"></div>
-        <button type="button" id="resultClose" class="button">Close</button>
+        <button type="button" id="resultRemove" class="button">Remove</button>
+        <button type=" button" id="resultClose" class="button">Close</button>
+    </div>
+
+    <div id="newListDialog">
+        <div>
+            <textarea id="newListInput" rows="15" placeholder="Use ';' or ',' or 'enter' to separate names."></textarea>
+        </div>
+
+        <button type="button" id="newListAdd" class="button">Add</button>
+        <button type="button" id="newListClear" class="button">Clear</button>
+        <button type=" button" id="newListClose" class="button">Cancel</button>
     </div>
 
     <script src="js/school.js"></script>

@@ -53,18 +53,19 @@
 }
 
 #resultDialog {
-    width: 90%;
     z-index: 1;
     padding: 20px;
     display: none;
     position: absolute;
     text-align: center;
+    opacity: 90%;
     color: white;
     background-color: #1B4B93;
 }
 
 #resultText {
     margin: 20px;
+    line-height: 35px;
     word-wrap: break-word;
 }
 
@@ -99,4 +100,55 @@
 .button:active {
     --color: #1B4B93;
     color: var(--color);
+}
+
+.menu {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#menuButton {
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    color: #040404;
+    position: absolute;
+    text-align: center;
+}
+
+#menu {
+    top: 40px;
+    left: 15px;
+    width: 200px;
+    display: none;
+    position: absolute;
+    background-color: #040404;
+}
+
+.menuItem {
+    padding: 15px;
+    color: white;
+    font-size: 20px;
+    border-bottom: white solid;
+}
+
+#newListDialog {
+    z-index: 1;
+    top: 5vh;
+    left: 5vw;
+    width: 90vw;
+    height: 90vh;
+    display: none;
+    position: absolute;
+    text-align: center;
+    opacity: 95%;
+    color: white;
+    background-color: #1B4B93;
+}
+
+#newListInput {
+    margin-top: 25px;
+    width: 90%;
 }

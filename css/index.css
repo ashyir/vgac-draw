@@ -134,7 +134,8 @@
     border-bottom: white solid;
 }
 
-#newListDialog {
+#newListDialog,
+#numberListDialog {
     z-index: 1;
     top: 5vh;
     left: 5vw;
@@ -151,4 +152,11 @@
 #newListInput {
     margin-top: 25px;
     width: 90%;
+}
+
+#numberListStart,
+#numberListEnd {
+    margin-top: 25px;
+    width: 90%;
+    height: 30px;
 }

@@ -1,6 +1,7 @@
 const menu = document.getElementById("menu");
 const menuButton = document.getElementById("menuButton");
 const menuNewList = document.getElementById("menuNewList");
+const menuNumbers = document.getElementById("menuNumbers");
 const menuOZUniversities = document.getElementById("menuOZUniversities");
 
 const spin = document.getElementById("spin");
@@ -17,6 +18,12 @@ const newListClear = document.getElementById("newListClear");
 const newListClose = document.getElementById("newListClose");
 const newListInput = document.getElementById("newListInput");
 const newListDialog = document.getElementById("newListDialog");
+
+const numberListAdd = document.getElementById("numberListAdd");
+const numberListClose = document.getElementById("numberListClose");
+const numberListStart = document.getElementById("numberListStart");
+const numberListEnd = document.getElementById("numberListEnd");
+const numberListDialog = document.getElementById("numberListDialog");
 
 const doublePI = 2 * Math.PI;
 
@@ -56,8 +63,15 @@ const showNewListDialog = () => {
     newListInput.focus();
 };
 
+const showNumberListDialog = () => {
+    screen.classList.add("opacity");
+    numberListDialog.style.display = "block";
+    numberListStart.focus();
+};
+
 const clearNewListInput = () => newListInput.value = "";
 const closeNewListDialog = () => hideElement(newListDialog);
+const closeNumberListDialog = () => hideElement(numberListDialog);
 
 const showResult = () => {
     let sector = sectors[getIndex()];
@@ -225,6 +239,24 @@ const addNewList = () => {
     }
 };
 
+const addNumberList = () => {
+    let start = parseInt(numberListStart.value);
+    let end = parseInt(numberListEnd.value);
+
+    if (start != "" && end != "" && start <= end) {
+        let list = [];
+
+        for (let i = start; i <= end; ++i) {
+            list.push(i);
+        }
+
+        prepareSector(list);
+        resizeWheel();
+
+        hideElement(numberListDialog);
+    }
+};
+
 const hideElements = (e) => {
     if (resultDialog.style.display == "block")
         hideResult();
@@ -245,8 +277,12 @@ resultDialog.addEventListener("click", preventClose);
 
 menuButton.addEventListener("click", toggleMenu);
 menuNewList.addEventListener("click", showNewListDialog);
+menuNumbers.addEventListener("click", showNumberListDialog);
 menuOZUniversities.addEventListener("click", getSchoolList);
 
 newListAdd.addEventListener("click", addNewList);
 newListClear.addEventListener("click", clearNewListInput);
 newListClose.addEventListener("click", closeNewListDialog);
+
+numberListAdd.addEventListener("click", addNumberList);
+numberListClose.addEventListener("click", closeNumberListDialog);

@@ -62,7 +62,7 @@
     text-align: center;
     opacity: 90%;
     color: white;
-    background-color: #1B4B93;
+    background-color: #133880;
 }
 
 #resultText {
@@ -99,7 +99,7 @@
 }
 
 .button:active {
-    --color: #1B4B93;
+    --color: #133880;
     color: var(--color);
 }
 
